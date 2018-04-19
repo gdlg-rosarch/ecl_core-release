@@ -89,25 +89,20 @@ TEST(Converter,toByteArray) {
     }
 }
 TEST(Converter,toByteArrayFailedSize) {
-  #if defined(NDEBUG) || defined(ECL_NDEBUG)
-    std::cout << "Skipping toByteArrayFailedSize test, it only throws in debug mode" << std::endl;
-    SUCCEED();
-  #else
-    ecl::Converter< ByteArray, ecl::int32 > toByteArray;
-    ecl::int32 i = 363;
-    ByteArray byte_array;
-    try {
-      byte_array = toByteArray(byte_array, i);
-    } catch ( ecl::StandardException &e ) {
-      if ( debug_output ) { std::cout << "Caught an exception from improper size of reserved memory." << std::endl; }
-    }
-    ecl::Error result = toByteArray.error();
-    if ( result.flag() == ecl::ConversionError ) {
-      SUCCEED();
-    } else {
-      FAIL();
-    }
-  #endif
+	ecl::Converter< ByteArray, ecl::int32 > toByteArray;
+	ecl::int32 i = 363;
+	ByteArray byte_array;
+	try {
+		byte_array = toByteArray(byte_array, i);
+	} catch ( ecl::StandardException &e ) {
+	    if ( debug_output ) { std::cout << "Caught an exception from improper size of reserved memory." << std::endl; }
+	}
+	ecl::Error result = toByteArray.error();
+	if ( result.flag() == ecl::ConversionError ) {
+	  SUCCEED();
+	} else {
+	  FAIL();
+	}
 }
 
 TEST(Converter,charToByteArray) {
